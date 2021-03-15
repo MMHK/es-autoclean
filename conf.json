@@ -1,0 +1,5 @@
+{
+    "es-endpoint": "http://192.168.33.6:9200",
+    "index_prefix": "filebeat-7.3.0-",
+    "keep_day": 10
+}
