@@ -1,0 +1,7 @@
+version: "3"
+services:
+  php:
+    image: "mmhk/es-autoclean:latest"
+    environment:
+      WWW_UID: 1000
+      WWW_GID: 1000

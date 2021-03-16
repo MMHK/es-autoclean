@@ -20,7 +20,8 @@ func TestESClient_ListIndex(t *testing.T) {
 	}
 	
 	for _, e := range list {
-		t.Log(e.CreateTime().Format(time.RFC3339))
+		t.Logf("\nname:%s\ncreate_at:%s",
+			e.Name, e.CreateTime().Format(time.RFC3339))
 	}
 	
 	t.Logf("%v", list)
@@ -28,7 +29,8 @@ func TestESClient_ListIndex(t *testing.T) {
 	expiredList := client.FilterExpiredIndex(list)
 	
 	for _, e := range expiredList {
-		t.Log(e.CreateTime().Format(time.RFC3339))
+		t.Logf("\nname:%s\ncreate_at:%s",
+			e.Name, e.CreateTime().Format(time.RFC3339))
 	}
 	
 	t.Logf("%v", expiredList)

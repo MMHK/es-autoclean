@@ -1,0 +1,6 @@
+{
+    "es-endpoint": "${ES_ENDPOINT}",
+    "index_prefix": "${INDEX_PREFIX}",
+    "keep_day": ${KEEP_DAY},
+    "check_cron": "${CRON_SPEC}"
+}

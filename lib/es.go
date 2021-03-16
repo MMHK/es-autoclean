@@ -29,7 +29,7 @@ func (this *ESIndex) CreateTime() time.Time {
 	millis, err := strconv.ParseInt(raw, 10, 64)
 	if err != nil {
 		millis = 0;
-		log.Error(err)
+		Log.Error(err)
 	}
 	return time.Unix(0, millis * int64(time.Millisecond));
 }
@@ -47,7 +47,7 @@ func (this *ESClient) ListIndex() ([]*ESIndex, error) {
 		Addresses: []string{this.conf.ESEndPoint},
 	})
 	if err != nil {
-		log.Error(err)
+		Log.Error(err)
 		return list, err
 	}
 	req := esapi.CatIndicesRequest{
@@ -57,13 +57,13 @@ func (this *ESClient) ListIndex() ([]*ESIndex, error) {
 	}
 	rep, err := req.Do(context.Background(), client)
 	if err != nil {
-		log.Error(err)
+		Log.Error(err)
 		return list, err
 	}
 	decoder := json.NewDecoder(rep.Body)
 	err = decoder.Decode(&list)
 	if err != nil {
-		log.Error(err)
+		Log.Error(err)
 		return list, err
 	}
 	
@@ -85,11 +85,15 @@ func (this *ESClient) FilterExpiredIndex(list []*ESIndex) []*ESIndex {
 }
 
 func (this *ESClient) RemoveIndex(list []*ESIndex) error {
+	if len(list) <= 0 {
+		return nil
+	}
+	
 	client, err := es6.NewClient(es6.Config{
 		Addresses: []string{this.conf.ESEndPoint},
 	})
 	if err != nil {
-		log.Error(err)
+		Log.Error(err)
 		return err
 	}
 	
@@ -104,17 +108,17 @@ func (this *ESClient) RemoveIndex(list []*ESIndex) error {
 	}
 	resp, err := req.Do(context.Background(), client)
 	if err != nil {
-		log.Error(err)
+		Log.Error(err)
 		return err
 	}
 	
 	if resp.IsError() {
 		bin, err := ioutil.ReadAll(resp.Body)
 		if err != nil {
-			log.Error(err)
+			Log.Error(err)
 		}
 		errorText := string(bin)
-		log.Error(errorText)
+		Log.Error(errorText)
 		return errors.New(errorText)
 	}
 	

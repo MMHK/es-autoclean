@@ -2,7 +2,7 @@ package lib
 
 import "github.com/op/go-logging"
 
-var log = logging.MustGetLogger("es-autoclean")
+var Log = logging.MustGetLogger("es-autoclean")
 
 func init() {
 	format := logging.MustStringFormatter(
